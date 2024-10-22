@@ -23,11 +23,15 @@ namespace WindowsFormsApp2
             double sum = 0;
             double summand = 0.0;
             double x;
-
+            double precision;
+            bool f = false;
+            if (double.TryParse(txtPrecision.Text, out precision))
+            {
+                f = true;
+            }
             do
             {
                 counter++;
-                bool f = false;
                 if ( double.TryParse(txtX.Text, out x ) )
                 {
                     f = true;
@@ -35,8 +39,13 @@ namespace WindowsFormsApp2
                 }
                 sum += summand;
                 
-            } while (Math.Abs(summand) > double.Parse(txtPrecision.Text) );
-            ibiResult.Text = "Сумма = " + sum + ", Количество = " + counter;
+            } while (f &&Math.Abs(summand) > precision );
+            if (f)
+            {
+                ibiResult.Text = "Сумма = " + sum + ", Количество = " + counter;
+            }
+            else
+                MessageBox.Show("Введите числовое значение!");
         }
     }
 }
